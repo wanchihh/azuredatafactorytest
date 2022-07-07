@@ -149,7 +149,7 @@
 								"referenceName": "OutputDS",
 								"type": "DatasetReference"
 							},
-							"name": "output"
+							"name": "sink1"
 						}
 					],
 					"transformations": [
@@ -196,16 +196,8 @@
 						"RemoveColumns1 derive(isOver25 = age > 25) ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     partitionFileNames:[(concat(\"output\",toString(currentTimestamp(), \"yyyyMMddHHmmssSSS\")))],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     mapColumn(",
-						"          address,",
-						"          name,",
-						"          age,",
-						"          isOver25",
-						"     ),",
-						"     partitionBy('hash', 1)) ~> output"
+						"     skipDuplicateMapOutputs: true) ~> sink1"
 					]
 				}
 			},
@@ -241,7 +233,7 @@
 								"datasetParameters": {
 									"address": {},
 									"person": {},
-									"output": {}
+									"sink1": {}
 								}
 							},
 							"staging": {},
