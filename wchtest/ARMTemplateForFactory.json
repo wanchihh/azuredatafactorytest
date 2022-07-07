@@ -196,7 +196,7 @@
 						"RemoveColumns1 derive(isOver25 = age > 25) ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     partitionFileNames:[(concat(\"output\",toString(currentTimestamp())))],",
+						"     partitionFileNames:[(concat(\"output\",toString(currentTimestamp(), \"yyyyMMddHHmmssSSS\")))],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     mapColumn(",
