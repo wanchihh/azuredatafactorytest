@@ -244,8 +244,10 @@
 						"RemoveColumns1 derive(isOver25 = age > 25) ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     partitionFileNames:[(concat(\"output\", toString(currentTimestamp(),\"yyyyMMddHHmmssSSS\"), \".csv\"))],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1"
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> sink1"
 					]
 				}
 			},
