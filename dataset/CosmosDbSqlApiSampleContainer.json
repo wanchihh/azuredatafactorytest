@@ -1,0 +1,22 @@
+{
+	"name": "CosmosDbSqlApiSampleContainer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CosmosDb1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string"
+				}
+			}
+		},
+		"typeProperties": {
+			"collectionName": "SampleContainer"
+		}
+	}
+}
