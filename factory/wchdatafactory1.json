@@ -1,0 +1,9 @@
+{
+	"name": "wchdatafactory1",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "83d84587-3f8a-4bfd-82e9-4f24f93bfaba",
+		"tenantId": "56a560e9-dc11-40a1-a194-4a266150754e"
+	}
+}
