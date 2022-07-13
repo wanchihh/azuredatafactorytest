@@ -1,0 +1,42 @@
+{
+	"name": "AzureSqlTablePersonAddress",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "varchar"
+			},
+			{
+				"name": "surname",
+				"type": "varchar"
+			},
+			{
+				"name": "given_name",
+				"type": "varchar"
+			},
+			{
+				"name": "age",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "gender",
+				"type": "char"
+			},
+			{
+				"name": "address",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "personaddress"
+		}
+	}
+}

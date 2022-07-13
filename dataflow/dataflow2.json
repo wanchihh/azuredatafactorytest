@@ -19,7 +19,15 @@
 					"name": "person"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTablePersonAddress",
+						"type": "DatasetReference"
+					},
+					"name": "personaddress"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
@@ -51,7 +59,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> person",
 				"Address, person join(Address@id == person@id,",
-				"     joinType:'right',",
+				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
@@ -64,7 +72,25 @@
 				"          gender",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> RemoveDupIdColumn"
+				"     skipDuplicateMapOutputs: true) ~> RemoveDupIdColumn",
+				"RemoveDupIdColumn sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          id as string,",
+				"          surname as string,",
+				"          given_name as string,",
+				"          age as integer,",
+				"          gender as string,",
+				"          address as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> personaddress"
 			]
 		}
 	}
