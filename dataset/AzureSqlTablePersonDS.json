@@ -1,0 +1,38 @@
+{
+	"name": "AzureSqlTablePersonDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "varchar"
+			},
+			{
+				"name": "surname",
+				"type": "varchar"
+			},
+			{
+				"name": "given_name",
+				"type": "varchar"
+			},
+			{
+				"name": "age",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "gender",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "person"
+		}
+	}
+}

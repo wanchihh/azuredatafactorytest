@@ -6,20 +6,42 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "CosmosDbSqlApiSampleContainer",
+						"referenceName": "CosmosDbSqlApiSampleContainerDS",
 						"type": "DatasetReference"
 					},
-					"name": "SampleContainer"
+					"name": "Address"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTablePersonDS",
+						"type": "DatasetReference"
+					},
+					"name": "person"
 				}
 			],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          address as string,",
+				"          id as string",
+				"     ),",
+				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     query: 'select c.id, c.address from c',",
 				"     format: 'documentQuery',",
-				"     systemColumns: false) ~> SampleContainer"
+				"     systemColumns: false) ~> Address",
+				"source(output(",
+				"          id as string,",
+				"          surname as string,",
+				"          given_name as string,",
+				"          age as integer,",
+				"          gender as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> person"
 			]
 		}
 	}
