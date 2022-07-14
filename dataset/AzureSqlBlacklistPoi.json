@@ -27,6 +27,11 @@
 			{
 				"name": "location",
 				"type": "varchar"
+			},
+			{
+				"name": "poidate",
+				"type": "datetime2",
+				"scale": 7
 			}
 		],
 		"typeProperties": {
