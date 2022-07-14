@@ -89,7 +89,8 @@
 				"          given_name as string,",
 				"          age as integer,",
 				"          gender as string,",
-				"          address as string",
+				"          address as string,",
+				"          isOver25 as boolean",
 				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
@@ -106,7 +107,8 @@
 				"          given_name,",
 				"          age,",
 				"          gender,",
-				"          address",
+				"          address,",
+				"          isOver25",
 				"     )) ~> personaddress"
 			]
 		}
