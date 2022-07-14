@@ -32,6 +32,10 @@
 			{
 				"name": "address",
 				"type": "varchar"
+			},
+			{
+				"name": "isOver25",
+				"type": "bit"
 			}
 		],
 		"typeProperties": {
