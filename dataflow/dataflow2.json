@@ -95,7 +95,15 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> personaddress"
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          id,",
+				"          surname,",
+				"          given_name,",
+				"          age,",
+				"          gender,",
+				"          address",
+				"     )) ~> personaddress"
 			]
 		}
 	}
