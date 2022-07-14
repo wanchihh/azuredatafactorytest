@@ -1,0 +1,50 @@
+{
+	"name": "dataflow3",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "CosmosDbSqlApiPoi",
+						"type": "DatasetReference"
+					},
+					"name": "Poi"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlBlacklist",
+						"type": "DatasetReference"
+					},
+					"name": "Blacklist"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "join1"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     query: (\"select c.id, c.name, c.location, c.date from c\"),",
+				"     format: 'documentQuery',",
+				"     systemColumns: false) ~> Poi",
+				"source(output(",
+				"          id as string,",
+				"          reason as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> Blacklist",
+				"Poi, Blacklist join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1"
+			]
+		}
+	}
+}
