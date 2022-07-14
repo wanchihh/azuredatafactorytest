@@ -38,6 +38,9 @@
 				},
 				{
 					"name": "AlterRow1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -76,7 +79,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> RemoveDupIdColumn",
-				"RemoveDupIdColumn alterRow(upsertIf(true())) ~> AlterRow1",
+				"derivedColumn1 alterRow(upsertIf(true())) ~> AlterRow1",
+				"RemoveDupIdColumn derive(isOver25 = age > 25) ~> derivedColumn1",
 				"AlterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
