@@ -10,6 +10,9 @@
 		"schema": {
 			"type": "object",
 			"properties": {
+				"pid": {
+					"type": "string"
+				},
 				"name": {
 					"type": "string"
 				},
