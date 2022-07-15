@@ -91,7 +91,8 @@
 				"          location,",
 				"          name,",
 				"          id = Poi@id,",
-				"          reason",
+				"          reason,",
+				"          address",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> removeDuplicateIdCol",
@@ -126,7 +127,8 @@
 				"          name,",
 				"          reason,",
 				"          location,",
-				"          poidate",
+				"          poidate,",
+				"          address",
 				"     )) ~> BlacklistPoi"
 			]
 		}
