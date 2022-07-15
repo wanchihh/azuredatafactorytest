@@ -17,6 +17,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "Blacklist"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTableAddress",
+						"type": "DatasetReference"
+					},
+					"name": "Address"
 				}
 			],
 			"sinks": [
@@ -30,7 +37,7 @@
 			],
 			"transformations": [
 				{
-					"name": "join1"
+					"name": "joinBlacklist"
 				},
 				{
 					"name": "removeDuplicateIdCol",
@@ -43,7 +50,7 @@
 					"name": "forUpsert"
 				},
 				{
-					"name": "join2"
+					"name": "joinAddress"
 				}
 			],
 			"scriptLines": [
@@ -66,12 +73,20 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> Blacklist",
+				"source(output(",
+				"          id as string,",
+				"          address as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> Address",
 				"Poi, Blacklist join(Poi@id == Blacklist@id,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1",
-				"join1 select(mapColumn(",
+				"     broadcast: 'auto')~> joinBlacklist",
+				"joinAddress select(mapColumn(",
 				"          date,",
 				"          location,",
 				"          name,",
@@ -80,13 +95,13 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> removeDuplicateIdCol",
-				"join2 derive(poidate = toTimestamp(date, 'yyyy-MM-dd\\'T\\'HH:mm:ss.SSS')) ~> convertDate",
+				"removeDuplicateIdCol derive(poidate = toTimestamp(date, 'yyyy-MM-dd\\'T\\'HH:mm:ss.SSS')) ~> convertDate",
 				"convertDate alterRow(upsertIf(true())) ~> forUpsert",
-				"removeDuplicateIdCol join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
-				"     joinType:'inner',",
+				"joinBlacklist, Address join(Poi@id == Address@id,",
+				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join2",
+				"     broadcast: 'auto')~> joinAddress",
 				"forUpsert sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
